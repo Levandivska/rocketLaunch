@@ -11,11 +11,12 @@ import Foundation
 class Network {
     
     
-    private let baseURL = "https://ll.thespacedevs.com/2.0.0/"
+    private let baseURL = "https://lldev.thespacedevs.com/2.2.0/"
     
     // fetch name of laounch, status and launch windows
-    func fetchLaunchData(){
-        let path = baseURL + "launch/"
+    func fetchLaunchData(completion: @escaping ([LaunchRocketInfo]?) -> (Void)) {
+        let path = baseURL + "launch"
+        
         guard let url = URL(string: path) else {
             print("Invalid Url")
             return
@@ -29,11 +30,20 @@ class Network {
                 return
             }
             if let data = data{
-                if let decodedJson = try? JSONDecoder().decode(LaunchRocketsInfo.self, from: data){
-                    print(decodedJson)
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                if let laounchRocketsInfo = try? decoder.decode(LaunchRocketsInfo.self, from: data){
+                    DispatchQueue.main.async{
+                        completion(laounchRocketsInfo.results)
+                    }
+                    return
                 }
             }
-
+            
+            DispatchQueue.main.async{
+                completion(nil)
+            }
         }
         
         dataTask.resume()

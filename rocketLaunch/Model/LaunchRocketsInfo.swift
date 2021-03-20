@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct LaunchRocketsInfo : Codable {
+struct LaunchRocketsInfo : Decodable {
     var results: [LaunchRocketInfo]
 }
