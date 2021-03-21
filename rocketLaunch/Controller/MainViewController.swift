@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
     
     var lounchRocketsInfo: [LaunchRocketInfo] = []
     
+    var favorites : [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,12 +25,21 @@ class MainViewController: UIViewController {
         
         network.fetchLaunchData{ [weak self] (launchInfo) -> (Void) in
             if let launchInfo = launchInfo{
-                print(launchInfo)
                 self?.lounchRocketsInfo = launchInfo
                 self?.tableView.reloadData()
-                
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if let indexPath = tableView.indexPathForSelectedRow,
+           let detailVC = segue.destination as? DetailViewController{
+            detailVC.launchId = lounchRocketsInfo[indexPath.row].id
+        }
+    }
+    
+    @IBAction func heartButtonTapped(_ sender: UIButton){
+        print("heart")
     }
 }
 
@@ -43,6 +54,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         cell.configure(with: cellInfo)
         return cell
     }
+    
+    
     
 }
 

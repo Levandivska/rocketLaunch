@@ -17,6 +17,8 @@ class LaunchRocketInfoCell: UITableViewCell {
     
     @IBOutlet weak var windowEnd: UILabel!
     
+    @IBOutlet weak var heartButton: UIButton!
+    
     static let identifier = "LaunchRocketInfo"
     
     func configure(with launchInfo: LaunchRocketInfo){
@@ -29,4 +31,5 @@ class LaunchRocketInfoCell: UITableViewCell {
         windowEnd.text = "window end: " + formatter.string(from: launchInfo.windowEnd)
     }
 
+    
 }
