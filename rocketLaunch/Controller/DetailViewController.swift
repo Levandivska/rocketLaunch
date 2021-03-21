@@ -23,7 +23,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var padWikiUrl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
         guard let launchId = launchId else { return }
         
         network.fetchLounchDetail(id: launchId){ [weak self] (launchDetail) -> (Void) in

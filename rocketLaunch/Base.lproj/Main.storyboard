@@ -92,7 +92,7 @@
                                                         <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="heartButtonTapped:" destination="LAb-86-RQg" eventType="touchUpInside" id="2Va-aa-PTd"/>
+                                                        <action selector="launchButtonTapped:" destination="Odn-Jx-vOa" eventType="touchUpInside" id="kdS-Cn-juy"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
