@@ -11,21 +11,25 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var network = Network()
     
-    var lounchRocketsInfo: [LaunchRocketInfo] = []
+    var launchRocketsInfo: [LaunchRocketInfo] = []
+    var filteredResults: [LaunchRocketInfo] = []
     var favorites: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+                
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         let defaults = UserDefaults.standard
         
         network.fetchLaunchData{ [weak self] (launchInfo) -> (Void) in
             if let launchInfo = launchInfo {
-                self?.lounchRocketsInfo = launchInfo
+                self?.launchRocketsInfo = launchInfo
+                self?.filteredResults = launchInfo
                 self?.favorites = defaults.object(forKey: "Favorites") as? [Bool] ?? Array(repeating: false, count: launchInfo.count)
                 self?.tableView.reloadData()
             }
@@ -35,14 +39,17 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if let indexPath = tableView.indexPathForSelectedRow,
            let detailVC = segue.destination as? DetailViewController{
-            detailVC.launchId = lounchRocketsInfo[indexPath.row].id
+            detailVC.launchId = filteredResults[indexPath.row].id
         }
+    }
+    func filterResultsByName(name: String){
+        filteredResults = launchRocketsInfo.filter{$0.name.starts(with: name)}
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lounchRocketsInfo.count
+        return filteredResults.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,7 +59,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.isFavorite = favorites[indexPath.row]
         
-        let cellInfo = lounchRocketsInfo[indexPath.row]
+        let cellInfo = filteredResults[indexPath.row]
         cell.configure(with: cellInfo)
         return cell
     }
@@ -61,7 +68,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
 
 extension MainViewController: LaunchRocketInfoCellDelegate {
     func launchRocketTableViewCell(_ tuppedButtonInCell: LaunchRocketInfoCell)
@@ -77,5 +83,16 @@ extension MainViewController: LaunchRocketInfoCellDelegate {
         tableView.reloadData()
         
         UserDefaults.standard.set(self.favorites, forKey: "Favorites")
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_: UISearchBar, textDidChange: String){
+        if textDidChange.isEmpty {
+            self.filteredResults = self.launchRocketsInfo
+        } else{
+            filterResultsByName(name: textDidChange)
+        }
+        tableView.reloadData()
     }
 }

@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-1436" y="-439"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Rocket launches -->
         <scene sceneID="28s-8e-gGE">
             <objects>
                 <viewController id="LAb-86-RQg" customClass="MainViewController" customModule="rocketLaunch" sceneMemberID="viewController">
@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d2R-Lx-b1c">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="724"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LaunchRocketInfo" rowHeight="135" id="Odn-Jx-vOa" customClass="LaunchRocketInfoCell" customModule="rocketLaunch">
@@ -121,18 +121,35 @@
                                     <outlet property="delegate" destination="LAb-86-RQg" id="KyO-PY-84i"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" text="" placeholder="Search by name" translatesAutoresizingMaskIntoConstraints="NO" id="GV3-LD-zjr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Nnb-2B-9eJ"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="LAb-86-RQg" id="9An-ft-hJ2"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1t6-b9-RL2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="d2R-Lx-b1c" firstAttribute="top" secondItem="1t6-b9-RL2" secondAttribute="top" id="Mvk-QR-XEV"/>
+                            <constraint firstItem="d2R-Lx-b1c" firstAttribute="top" secondItem="GV3-LD-zjr" secondAttribute="bottom" id="ECY-ND-hfI"/>
+                            <constraint firstItem="GV3-LD-zjr" firstAttribute="top" secondItem="1t6-b9-RL2" secondAttribute="top" id="QPr-dL-l32"/>
                             <constraint firstItem="1t6-b9-RL2" firstAttribute="trailing" secondItem="d2R-Lx-b1c" secondAttribute="trailing" id="VZx-5c-G1c"/>
+                            <constraint firstItem="GV3-LD-zjr" firstAttribute="leading" secondItem="1t6-b9-RL2" secondAttribute="leading" id="ZUX-ax-3W2"/>
+                            <constraint firstItem="GV3-LD-zjr" firstAttribute="trailing" secondItem="1t6-b9-RL2" secondAttribute="trailing" id="hZa-VR-nqe"/>
                             <constraint firstItem="d2R-Lx-b1c" firstAttribute="leading" secondItem="1t6-b9-RL2" secondAttribute="leading" id="rCs-w2-5d2"/>
                             <constraint firstItem="1t6-b9-RL2" firstAttribute="bottom" secondItem="d2R-Lx-b1c" secondAttribute="bottom" id="sJS-7o-R6v"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="PCG-KQ-aG7"/>
+                    <navigationItem key="navigationItem" id="PCG-KQ-aG7">
+                        <string key="title">Rocket launches
+</string>
+                    </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="GV3-LD-zjr" id="WuA-J1-yK6"/>
                         <outlet property="tableView" destination="d2R-Lx-b1c" id="rHJ-XL-0rW"/>
                     </connections>
                 </viewController>

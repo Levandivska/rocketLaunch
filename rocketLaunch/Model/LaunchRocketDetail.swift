@@ -16,12 +16,10 @@ struct LaunchRocketDetail: Decodable{
             var description: String
             var diameter: Double
             var length: Double
-//            var launchCost: Int
             
             enum CodingKeys: String, CodingKey{
                 case description, diameter, length
                 case name = "full_name"
-//                case launchCost = "launch_cost"
             }
         }
         
