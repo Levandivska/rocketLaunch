@@ -10,7 +10,6 @@
 		0FAA6A082606301400452011 /* LaunchRocketInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA6A072606301400452011 /* LaunchRocketInfoCell.swift */; };
 		0FAA6A0E26064A2F00452011 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA6A0D26064A2F00452011 /* DetailViewController.swift */; };
 		0FAA6A1526064ECE00452011 /* LaunchRocketDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA6A1426064ECE00452011 /* LaunchRocketDetail.swift */; };
-		0FAA6A182607841C00452011 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA6A172607841C00452011 /* DetailView.swift */; };
 		0FB2EE6F260609520025A2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB2EE6E260609520025A2CD /* AppDelegate.swift */; };
 		0FB2EE71260609520025A2CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB2EE70260609520025A2CD /* SceneDelegate.swift */; };
 		0FB2EE73260609520025A2CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB2EE72260609520025A2CD /* MainViewController.swift */; };
@@ -26,7 +25,6 @@
 		0FAA6A072606301400452011 /* LaunchRocketInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchRocketInfoCell.swift; sourceTree = "<group>"; };
 		0FAA6A0D26064A2F00452011 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0FAA6A1426064ECE00452011 /* LaunchRocketDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchRocketDetail.swift; sourceTree = "<group>"; };
-		0FAA6A172607841C00452011 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		0FB2EE6B260609510025A2CD /* rocketLaunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rocketLaunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB2EE6E260609520025A2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FB2EE70260609520025A2CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				0FAA6A072606301400452011 /* LaunchRocketInfoCell.swift */,
-				0FAA6A172607841C00452011 /* DetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -226,7 +223,6 @@
 				0FB2EE94260614CF0025A2CD /* LaunchRocketInfo.swift in Sources */,
 				0FAA6A082606301400452011 /* LaunchRocketInfoCell.swift in Sources */,
 				0FB2EE73260609520025A2CD /* MainViewController.swift in Sources */,
-				0FAA6A182607841C00452011 /* DetailView.swift in Sources */,
 				0FB2EE6F260609520025A2CD /* AppDelegate.swift in Sources */,
 				0FB2EE8B26060B980025A2CD /* Network.swift in Sources */,
 				0FB2EE97260615B60025A2CD /* LaunchRocketsInfo.swift in Sources */,

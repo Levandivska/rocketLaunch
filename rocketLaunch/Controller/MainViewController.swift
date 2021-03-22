@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     
     var launchRocketsInfo: [LaunchRocketInfo] = []
     var filteredResults: [LaunchRocketInfo] = []
-    var favorites: [Bool] = []
+    var favoritesId: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
             if let launchInfo = launchInfo {
                 self?.launchRocketsInfo = launchInfo
                 self?.filteredResults = launchInfo
-                self?.favorites = defaults.object(forKey: "Favorites") as? [Bool] ?? Array(repeating: false, count: launchInfo.count)
+                self?.favoritesId = defaults.object(forKey: "Favorites") as? [String] ?? [String]()
                 self?.tableView.reloadData()
             }
         }
@@ -42,8 +42,26 @@ class MainViewController: UIViewController {
             detailVC.launchId = filteredResults[indexPath.row].id
         }
     }
+    
     func filterResultsByName(name: String){
         filteredResults = launchRocketsInfo.filter{$0.name.starts(with: name)}
+    }
+    
+    // change isFavorite status of cell and return new isFavorite status
+    func changeIsFavoriteStatusOfLaunch(id: String) -> Bool{
+        if favoritesId.contains(id){
+            favoritesId = favoritesId.filter {$0 != id}
+            UserDefaults.standard.set(self.favoritesId, forKey: "Favorites")
+            return false
+        }
+        
+        favoritesId.append(id)
+        UserDefaults.standard.set(self.favoritesId, forKey: "Favorites")
+        return true
+    }
+    
+    func launchIsFavorite(id: String) -> Bool{
+        return favoritesId.contains(id)
     }
 }
 
@@ -57,10 +75,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
                 
         cell.delegate = self
         
-        cell.isFavorite = favorites[indexPath.row]
-        
-        let cellInfo = filteredResults[indexPath.row]
-        cell.configure(with: cellInfo)
+        let launchInfo = filteredResults[indexPath.row]
+        cell.isFavorite = launchIsFavorite(id: launchInfo.id)
+        cell.configure(with: launchInfo)
         return cell
     }
     
@@ -69,20 +86,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
+
 extension MainViewController: LaunchRocketInfoCellDelegate {
     func launchRocketTableViewCell(_ tuppedButtonInCell: LaunchRocketInfoCell)
     {
+        
         guard let indexPathRow = tableView.indexPath(for: tuppedButtonInCell)?.row else{
             return
         }
-        
-        let isFavoriteNewStatus = !self.favorites[indexPathRow]
-        
-        self.favorites[indexPathRow] = isFavoriteNewStatus
+        let launchId = filteredResults[indexPathRow].id
+        let isFavoriteNewStatus = changeIsFavoriteStatusOfLaunch(id: launchId)
         tuppedButtonInCell.isFavorite = isFavoriteNewStatus
         tableView.reloadData()
-        
-        UserDefaults.standard.set(self.favorites, forKey: "Favorites")
     }
 }
 

@@ -23,5 +23,5 @@ struct LaunchRocketInfo: Decodable {
         case windowStart = "window_start"
         case windowEnd = "window_end"
     }
-    
 }
+
