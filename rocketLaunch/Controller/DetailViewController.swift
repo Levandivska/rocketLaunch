@@ -24,9 +24,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
         guard let launchId = launchId else { return }
         
         network.fetchLounchDetail(id: launchId){ [weak self] (launchDetail) -> (Void) in

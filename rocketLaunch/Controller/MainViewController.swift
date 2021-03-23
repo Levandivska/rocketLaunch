@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
         
         let defaults = UserDefaults.standard
         
-        network.fetchLaunchData{ [weak self] (launchInfo) -> (Void) in
+        network.fetchLaunchData{ [weak self] (launchInfo) -> () in
             guard let self = self,
                   let launchInfo = launchInfo else { return }
             self.launchRocketsInfo = launchInfo
@@ -61,13 +61,13 @@ class MainViewController: UIViewController {
         return true
     }
     
-    func launchIsFavorite(id: String) -> Bool{
+    func launchIsFavorite(id: String) -> Bool {
         return favoritesId.contains(id)
     }
 }
 
 // MARK: - UITableViewDataSource
-extension MainViewController: UITableViewDataSource{
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredResults.count
     }
@@ -85,7 +85,7 @@ extension MainViewController: UITableViewDataSource{
 }
 
 // MARK: - UITableViewDelegate
-extension MainViewController: UITableViewDelegate{
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
