@@ -21,18 +21,19 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
+        
         let defaults = UserDefaults.standard
         
         network.fetchLaunchData{ [weak self] (launchInfo) -> (Void) in
-            if let launchInfo = launchInfo {
-                self?.launchRocketsInfo = launchInfo
-                self?.filteredResults = launchInfo
-                self?.favoritesId = defaults.object(forKey: "Favorites") as? [String] ?? [String]()
-                self?.tableView.reloadData()
-            }
+            guard let self = self,
+                  let launchInfo = launchInfo else { return }
+            self.launchRocketsInfo = launchInfo
+            self.filteredResults = launchInfo
+            self.favoritesId = defaults.object(forKey: "Favorites") as? [String] ?? [String]()
+            self.tableView.reloadData()
         }
     }
     
@@ -51,12 +52,12 @@ class MainViewController: UIViewController {
     func changeIsFavoriteStatusOfLaunch(id: String) -> Bool{
         if favoritesId.contains(id){
             favoritesId = favoritesId.filter {$0 != id}
-            UserDefaults.standard.set(self.favoritesId, forKey: "Favorites")
+            UserDefaults.standard.set(favoritesId, forKey: "Favorites")
             return false
         }
         
         favoritesId.append(id)
-        UserDefaults.standard.set(self.favoritesId, forKey: "Favorites")
+        UserDefaults.standard.set(favoritesId, forKey: "Favorites")
         return true
     }
     
@@ -65,7 +66,8 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource{
+// MARK: - UITableViewDataSource
+extension MainViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredResults.count
     }
@@ -80,17 +82,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         cell.configure(with: launchInfo)
         return cell
     }
-    
+}
+
+// MARK: - UITableViewDelegate
+extension MainViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-
+// MARK: - LaunchRocketInfoCellDelegate
 extension MainViewController: LaunchRocketInfoCellDelegate {
     func launchRocketTableViewCell(_ tuppedButtonInCell: LaunchRocketInfoCell)
     {
-        
         guard let indexPathRow = tableView.indexPath(for: tuppedButtonInCell)?.row else{
             return
         }
@@ -101,10 +105,11 @@ extension MainViewController: LaunchRocketInfoCellDelegate {
     }
 }
 
+// MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_: UISearchBar, textDidChange: String){
         if textDidChange.isEmpty {
-            self.filteredResults = self.launchRocketsInfo
+            filteredResults = launchRocketsInfo
         } else{
             filterResultsByName(name: textDidChange)
         }

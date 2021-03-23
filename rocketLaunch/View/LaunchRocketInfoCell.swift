@@ -34,10 +34,6 @@ class LaunchRocketInfoCell: UITableViewCell {
         windowStart.text = "window start: " + formatter.string(from: launchInfo.windowStart)
         windowEnd.text = "window end: " + formatter.string(from: launchInfo.windowEnd)
         
-        // Dont repeat yorself
-        let buttonImage = UIImage(systemName: "heart.fill")
-        heartButton.setImage(buttonImage, for: .normal)
-        
         if isFavorite{
             let buttonImage = UIImage(systemName: "heart.fill")
             heartButton.setImage(buttonImage, for: .normal)
